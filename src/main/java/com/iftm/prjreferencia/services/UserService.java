@@ -71,5 +71,4 @@ public class UserService {
 		entity.setEmail(dto.getEmail());
 		entity.setPhone(dto.getPhone());
 	}
-
 }

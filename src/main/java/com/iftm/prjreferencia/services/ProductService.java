@@ -27,7 +27,7 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository repository;
-	
+
 	@Autowired
 	private CategoryRepository categoryrepository;
 
@@ -41,22 +41,13 @@ public class ProductService {
 		Product entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
 		return new ProductDTO(entity);
 	}
-	
+
 	@Transactional
 	public ProductDTO insert(ProductCategoriesDTO dto) {
 		Product entity = dto.toEntity();
 		setProductCategories(entity, dto.getCategories());
 		entity = repository.save(entity);
 		return new ProductDTO(entity);
-	}
-	
-	private void setProductCategories(Product entity, List<CategoryDTO> categories) {
-		entity.getCategories().clear();
-		for(CategoryDTO dto : categories) {
-			Category category = categoryrepository.getOne(dto.getId());
-			entity.getCategories().add(category);
-		}
-		
 	}
 
 	public void delete(Long id) {
@@ -70,11 +61,11 @@ public class ProductService {
 	}
 
 	@Transactional
-	public ProductDTO update(Long id, ProductDTO dto) {
+	public ProductDTO update(Long id, ProductCategoriesDTO dto) {
 		try {
 			Product entity = repository.getOne(id);
 			updateData(entity, dto);
-			entity =  repository.save(entity);
+			entity = repository.save(entity);
 			return new ProductDTO(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
@@ -82,10 +73,22 @@ public class ProductService {
 
 	}
 
-	private void updateData(Product entity, ProductDTO dto) {
+	private void updateData(Product entity, ProductCategoriesDTO dto) {
 		entity.setName(dto.getName());
 		entity.setDescription(dto.getDescription());
 		entity.setPrice(dto.getPrice());
 		entity.setImgURL(dto.getImgURL());
+		if (dto.getCategories() != null && dto.getCategories().size() > 0) {
+			setProductCategories(entity, dto.getCategories());
+		}
+	}
+
+	private void setProductCategories(Product entity, List<CategoryDTO> categories) {
+		entity.getCategories().clear();
+		for (CategoryDTO dto : categories) {
+			Category category = categoryrepository.getOne(dto.getId());
+			entity.getCategories().add(category);
+		}
+
 	}
 }

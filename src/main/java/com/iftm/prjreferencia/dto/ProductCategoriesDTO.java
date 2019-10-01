@@ -1,44 +1,36 @@
 package com.iftm.prjreferencia.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.iftm.prjreferencia.entities.Product;
 
-public class ProductDTO implements Serializable {
+public class ProductCategoriesDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
 	private String name;
 	private String description;
 	private Double price;
 	private String imgURL;
-
-	public ProductDTO() {
-
+	private List<CategoryDTO> categories = new ArrayList<>();
+	
+	public ProductCategoriesDTO() {
+		
 	}
 
-	public ProductDTO(Long id, String name, String description, Double price, String imgURL) {		
-		this.id = id;
+	public ProductCategoriesDTO(String name, String description, Double price, String imgURL) {	
 		this.name = name;
 		this.description = description;
 		this.price = price;
-		this.imgURL = imgURL;
+		this.imgURL = imgURL;	
 	}
 
-	public ProductDTO(Product entity) {
-		setId(entity.getId());
+	public ProductCategoriesDTO(Product entity) {		
 	    setName(entity.getName());
 		setDescription(entity.getDescription());
 		setPrice(entity.getPrice());
 		setImgURL(entity.getImgURL());
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -73,8 +65,14 @@ public class ProductDTO implements Serializable {
 		this.imgURL = imgURL;
 	}
 
-	public Product toEntity() {
-		return new Product(id, name, description, price, imgURL);
+	public List<CategoryDTO> getCategories() {
+		return categories;
 	}
 
+	
+	public Product toEntity() {
+		return new Product(null, name, description, price, imgURL);
+	}
+	
+	
 }

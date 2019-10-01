@@ -3,6 +3,7 @@ package com.iftm.prjreferencia.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.iftm.prjreferencia.entities.Order;
 import com.iftm.prjreferencia.entities.User;
 import com.iftm.prjreferencia.entities.enums.OrderStatus;
@@ -12,6 +13,7 @@ public class OrderDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 	private OrderStatus orderStatus;
 	private Long clientId;

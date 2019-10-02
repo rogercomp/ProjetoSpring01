@@ -2,15 +2,27 @@ package com.iftm.prjreferencia.dto;
 
 import java.io.Serializable;
 
-import com.iftm.prjreferencia.entities.User;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
+
+import com.iftm.prjreferencia.entities.User;
+import com.iftm.prjreferencia.services.validation.UserUpdateValid;
+
+@UserUpdateValid
 public class UserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	@NotEmpty(message = "can't be empty")
 	private String name;
+	@NotEmpty(message = "can't be empty")
+	@Email
 	private String email;
+	@NotEmpty(message = "can't be empty")
+	@Length(min=5, max=80, message="lenght must be between 5 and 80")
 	private String phone;
 
 	public UserDTO() {

@@ -3,7 +3,6 @@ package com.iftm.prjreferencia.dto;
 import java.io.Serializable;
 
 import com.iftm.prjreferencia.entities.Category;
-import com.iftm.prjreferencia.entities.User;
 
 public class CategoryDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iftm.prjreferencia.dto.CategoryDTO;
-import com.iftm.prjreferencia.dto.UserDTO;
 import com.iftm.prjreferencia.entities.Category;
-import com.iftm.prjreferencia.entities.User;
 import com.iftm.prjreferencia.repositories.CategoryRepository;
 import com.iftm.prjreferencia.services.exceptions.DatabaseException;
 import com.iftm.prjreferencia.services.exceptions.ResourceNotFoundException;

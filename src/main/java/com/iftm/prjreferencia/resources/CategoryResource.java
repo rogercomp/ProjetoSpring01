@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.iftm.prjreferencia.dto.CategoryDTO;
-import com.iftm.prjreferencia.dto.UserDTO;
-import com.iftm.prjreferencia.entities.Category;
 import com.iftm.prjreferencia.services.CategoryService;
 
 @RestController

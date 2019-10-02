@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iftm.prjreferencia.dto.OrderDTO;
-import com.iftm.prjreferencia.dto.UserDTO;
 import com.iftm.prjreferencia.entities.Order;
-import com.iftm.prjreferencia.entities.User;
 import com.iftm.prjreferencia.repositories.OrderRepository;
 import com.iftm.prjreferencia.services.exceptions.ResourceNotFoundException;
 
@@ -31,5 +29,4 @@ public class OrderService {
 		Order entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
 		return new OrderDTO(entity);
 	}
-
 }

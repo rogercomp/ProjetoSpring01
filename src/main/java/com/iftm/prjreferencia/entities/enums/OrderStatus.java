@@ -1,7 +1,5 @@
 package com.iftm.prjreferencia.entities.enums;
 
-import org.springframework.transaction.InvalidIsolationLevelException;
-
 public enum OrderStatus {
 
 	WAITING_PAYMENT(1),

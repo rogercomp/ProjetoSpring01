@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.iftm.prjreferencia.entities.User;
+import com.iftm.prjreferencia.services.validation.UserInsertValid;
 
+@UserInsertValid
 public class UserInsertDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;

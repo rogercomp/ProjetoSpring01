@@ -45,19 +45,17 @@ public class ProductResource {
 				.buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);
 	}
-
-	
-	
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
-	}
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductCategoriesDTO dto) {
 		ProductDTO newdto = service.update(id, dto);
 		return ResponseEntity.ok().body(newdto);
 		
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }

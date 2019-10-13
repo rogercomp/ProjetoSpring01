@@ -37,7 +37,7 @@ public class User implements UserDetails {
 
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
@@ -98,7 +98,7 @@ public class User implements UserDetails {
 	public List<Order> getOrders() {
 		return orders;
 	}
-	
+
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -129,17 +129,17 @@ public class User implements UserDetails {
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {		
+	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles;
 	}
 
 	@Override
-	public String getUsername() {		
+	public String getUsername() {
 		return email;
 	}
 
 	@Override
-	public boolean isAccountNonExpired() {		
+	public boolean isAccountNonExpired() {
 		return true;
 	}
 
@@ -158,4 +158,12 @@ public class User implements UserDetails {
 		return true;
 	}
 
+	public boolean hasRole(String roleName) {
+		for (Role role : roles) {
+			if (role.getAuthority().equals(roleName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

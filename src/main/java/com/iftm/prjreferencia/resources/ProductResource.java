@@ -30,42 +30,52 @@ import com.iftm.prjreferencia.services.ProductService;
 public class ProductResource {
 
 	@Autowired
-	private ProductService service;  
-	
+	private ProductService service;
+
 	@GetMapping
-	public ResponseEntity<Page<ProductDTO>> findAllPaged(
-			@RequestParam(value="page", defaultValue = "0") Integer page,
-			@RequestParam(value="linesPerPage", defaultValue = "12") Integer linesPerPage,
-			@RequestParam(value="orderBy", defaultValue = "name") String orderby,
-			@RequestParam(value="direction", defaultValue = "ASC") String direction) {
+	public ResponseEntity<Page<ProductDTO>> findAllPaged(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "name") String orderby,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		PageRequest pagerequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderby);
-		Page<ProductDTO> list = service.findAllPaged(pagerequest);		
+		Page<ProductDTO> list = service.findAllPaged(pagerequest);
 		return ResponseEntity.ok().body(list);
 	}
-	
+
+	@GetMapping(value = "/category/{categoryId}")
+	public ResponseEntity<Page<ProductDTO>> findByCategoryPaged(
+			@PathVariable Long categoryId,
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "name") String orderby,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+		PageRequest pagerequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderby);
+		Page<ProductDTO> list = service.findByCategoryPaged(categoryId, pagerequest);
+		return ResponseEntity.ok().body(list);
+	}
+
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
 		ProductDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
-	}	
-	
+	}
+
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductCategoriesDTO dto) {
 		ProductDTO newDTO = service.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(newDTO.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);
 	}
-	
+
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductCategoriesDTO dto) {
 		ProductDTO newdto = service.update(id, dto);
 		return ResponseEntity.ok().body(newdto);
-		
+
 	}
-	
+
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {

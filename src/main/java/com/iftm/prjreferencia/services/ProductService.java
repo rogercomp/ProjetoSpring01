@@ -30,7 +30,7 @@ public class ProductService {
 	private ProductRepository repository;
 
 	@Autowired
-	private CategoryRepository categoryrepository;
+	private CategoryRepository categoryRepository;
 
 	public Page<ProductDTO> findAllPaged(Pageable pageable) {
 		Page<Product> list = repository.findAll(pageable);
@@ -87,9 +87,16 @@ public class ProductService {
 	private void setProductCategories(Product entity, List<CategoryDTO> categories) {
 		entity.getCategories().clear();
 		for (CategoryDTO dto : categories) {
-			Category category = categoryrepository.getOne(dto.getId());
+			Category category = categoryRepository.getOne(dto.getId());
 			entity.getCategories().add(category);
 		}
 
+	}
+
+	@Transactional(readOnly = true)
+	public Page<ProductDTO> findByCategoryPaged(Long categoryId, Pageable pageable) {
+		Category category = categoryRepository.getOne(categoryId);
+		Page<Product> products = repository.findByCategory(category, pageable);
+		return products.map(e -> new ProductDTO(e));
 	}
 }

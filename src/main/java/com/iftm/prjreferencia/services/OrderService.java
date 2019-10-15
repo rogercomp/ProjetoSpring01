@@ -15,6 +15,7 @@ import com.iftm.prjreferencia.entities.Order;
 import com.iftm.prjreferencia.entities.OrderItem;
 import com.iftm.prjreferencia.entities.User;
 import com.iftm.prjreferencia.repositories.OrderRepository;
+import com.iftm.prjreferencia.repositories.UserRepository;
 import com.iftm.prjreferencia.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -23,6 +24,9 @@ public class OrderService {
 	@Autowired
 	private OrderRepository repository;
 
+	@Autowired
+	private UserRepository userRepository;
+	
 	@Autowired
 	private AuthService authService;
 
@@ -48,6 +52,13 @@ public class OrderService {
 
 	public List<OrderDTO> findByClient() {
 		User client = authService.authenticated();
+		List<Order> list = repository.findByClient(client);
+		return list.stream().map(e -> new OrderDTO(e)).collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<OrderDTO> findByClientId(Long clientId) {
+		User client = userRepository.getOne(clientId);
 		List<Order> list = repository.findByClient(client);
 		return list.stream().map(e -> new OrderDTO(e)).collect(Collectors.toList());
 	}

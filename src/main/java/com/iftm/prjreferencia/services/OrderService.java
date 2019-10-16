@@ -12,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iftm.prjreferencia.dto.CategoryDTO;
 import com.iftm.prjreferencia.dto.OrderDTO;
 import com.iftm.prjreferencia.dto.OrderItemDTO;
-import com.iftm.prjreferencia.entities.Category;
 import com.iftm.prjreferencia.entities.Order;
 import com.iftm.prjreferencia.entities.OrderItem;
 import com.iftm.prjreferencia.entities.Product;

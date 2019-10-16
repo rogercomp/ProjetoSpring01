@@ -23,8 +23,6 @@ import com.iftm.prjreferencia.repositories.UserRepository;
 import com.iftm.prjreferencia.services.exceptions.DatabaseException;
 import com.iftm.prjreferencia.services.exceptions.ResourceNotFoundException;
 
-import io.swagger.annotations.Authorization;
-
 @Service
 public class UserService implements UserDetailsService {
 
